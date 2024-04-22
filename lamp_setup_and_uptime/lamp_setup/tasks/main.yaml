@@ -1,0 +1,20 @@
+---
+- name: set user home directory
+  ansible.builtin.set_fact:
+    user_home: "{{ lookup('env', 'HOME') }}"
+    
+- name: copy lamp bash script
+  ansible.builtin.copy:
+    src: lamp.sh
+    dest: "{{ user_home }}/lamp.sh"
+    owner: "{{ ansible_user }}"
+    mode: 0770
+- name: copy configuration file for apache
+  ansible.builtin.copy:
+    src: file.conf
+    dest: "{{ user_home }}/file.conf"
+    owner: "{{ ansible_user }}"
+    mode: 0644
+
+- name: run lamp bash script
+  ansible.builtin.shell: sh lamp.sh

@@ -1,0 +1,7 @@
+---
+- name: running LAMP setup and uptime script
+  become: yes
+  hosts: web_server
+  roles: 
+    - lamp_setup
+    - uptime

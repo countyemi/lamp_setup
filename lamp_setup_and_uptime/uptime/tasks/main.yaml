@@ -1,0 +1,11 @@
+---
+- name: set user home directory
+  ansible.builtin.set_fact:
+    user_home: "{{ lookup('env', 'HOME') }}"
+    
+- name: Add cron job for uptime
+  cron:
+    name: "run uptime check at 12am daily"
+    minute: "0"
+    hour: "0"
+    job: "uptime >> {{ user_home }}/log.txt"
